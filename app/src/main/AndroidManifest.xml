@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EstoriasSemHApp">
         <activity
+            android:name=".WriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CommentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
