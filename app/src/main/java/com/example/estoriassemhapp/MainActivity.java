@@ -3,9 +3,14 @@ package com.example.estoriassemhapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import android.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,11 +18,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //MainActivityViewModel vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
@@ -40,14 +47,20 @@ public class MainActivity extends AppCompatActivity {
                         setFragment(writeViewFragment);
                         break;
                     case R.id.tagsViewOp: // Se a visualização por grid for selecionada, exibir em formato grid.
+                        TagsFragment tagsFragment = TagsFragment.newInstance();
+                        setFragment(tagsFragment);
                         break;
                     case R.id.exitOp: // Se a visualização por grid for selecionada, exibir em formato grid.
+                        logout();
                         break;
                 }
 
                 return true;
             }
         });
+
+        Toolbar toolbar = findViewById(R.id.tbMain);
+        setSupportActionBar(toolbar);
     }
 
     void setFragment(Fragment fragment) {
@@ -55,5 +68,41 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragContainer, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    void logout() {
+        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(i);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_nav_menu, menu);
+
+        super.onPrepareOptionsMenu(menu);
+        MenuItem myActionMenuItem = menu.findItem(R.id.opSearch);
+        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent i = new Intent(MainActivity.this, SearchActivity.class);
+                i.putExtra("query", query);
+
+                startActivity(i);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        return true;
     }
 }

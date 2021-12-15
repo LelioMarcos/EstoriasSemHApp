@@ -5,9 +5,9 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="primaryVariantColor">#baab98</color>
+    <color name="primaryVariantColor">#7A6953</color>
     <color name="btnColor">#604d3f</color>
-    <color name="primaryColor">#f4f1ea</color>
+    <color name="primaryColor">#A58B6B</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
