@@ -1,4 +1,4 @@
-package com.example.estoriassemhapp;
+package com.example.estoriassemhapp.util;
 
 import android.util.Base64;
 

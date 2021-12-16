@@ -1,19 +1,23 @@
-package com.example.estoriassemhapp;
+package com.example.estoriassemhapp.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-public class CommentsActivity extends AppCompatActivity {
+import com.example.estoriassemhapp.R;
+
+public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comments);
+        setContentView(R.layout.activity_search);
 
         Toolbar toolbar = findViewById(R.id.tbMain);
         setSupportActionBar(toolbar);
@@ -21,6 +25,11 @@ public class CommentsActivity extends AppCompatActivity {
         // Adicionar a opção de voltar para a página inicial na toolbar.
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        Intent i = getIntent();
+        String query = i.getStringExtra("query");
+
+        Log.i("search", query);
     }
 
     @Override

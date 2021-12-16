@@ -1,4 +1,4 @@
-package com.example.estoriassemhapp;
+package com.example.estoriassemhapp.model;
 
 public class Story {
     String id;

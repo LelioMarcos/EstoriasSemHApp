@@ -1,4 +1,4 @@
-package com.example.estoriassemhapp;
+package com.example.estoriassemhapp.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,16 +6,19 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Button;
 
-public class SearchActivity extends AppCompatActivity {
+import com.example.estoriassemhapp.R;
+
+public class StoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_story);
 
         Toolbar toolbar = findViewById(R.id.tbMain);
         setSupportActionBar(toolbar);
@@ -24,10 +27,17 @@ public class SearchActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Intent i = getIntent();
-        String query = i.getStringExtra("query");
+        Button btnComments = findViewById(R.id.btnComments);
 
-        Log.i("search", query);
+        btnComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(StoryActivity.this, CommentsActivity.class);
+                i.putExtra("id_story", 1);
+
+                startActivity(i);
+            }
+        });
     }
 
     @Override

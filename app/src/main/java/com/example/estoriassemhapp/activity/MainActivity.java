@@ -1,4 +1,4 @@
-package com.example.estoriassemhapp;
+package com.example.estoriassemhapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.estoriassemhapp.fragment.MainFragment;
+import com.example.estoriassemhapp.fragment.ProfileFragment;
+import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.fragment.TagsFragment;
+import com.example.estoriassemhapp.fragment.WriteViewFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

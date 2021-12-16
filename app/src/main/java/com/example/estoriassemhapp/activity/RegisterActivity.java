@@ -1,13 +1,13 @@
-package com.example.estoriassemhapp;
+package com.example.estoriassemhapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+
+import com.example.estoriassemhapp.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

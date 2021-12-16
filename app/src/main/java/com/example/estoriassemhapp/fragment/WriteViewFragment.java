@@ -1,4 +1,4 @@
-package com.example.estoriassemhapp;
+package com.example.estoriassemhapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.activity.StoryActivity;
 
 /**
  * A simple {@link Fragment} subclass.
