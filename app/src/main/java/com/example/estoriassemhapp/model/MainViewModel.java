@@ -60,7 +60,7 @@ public class MainViewModel extends ViewModel {
 
                             String id = jProduct.getString("idhist");
                             String title = jProduct.getString("nomhist");
-                            String text = jProduct.getString("dsccorpohist");
+                            String text = jProduct.getString("dscsinopsehist");
 
                             Story story = new Story(id, title, text);
                             storiesList.add(story);
