@@ -42,7 +42,7 @@ public class MainViewModel extends ViewModel {
             @Override
             public void run() {
                 List<Story> storiesList = new ArrayList<>();
-                HttpRequest httpRequest = new HttpRequest("http://localhost:8080/CRUD/stories/get_stories.php", "GET", "UTF-8");
+                HttpRequest httpRequest = new HttpRequest("https://estorias-sem-h-crud.herokuapp.com/stories/get_stories.php", "GET", "UTF-8");
 
                 try {
                     InputStream is = httpRequest.execute();

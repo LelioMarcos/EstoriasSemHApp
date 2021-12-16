@@ -2,6 +2,7 @@ package com.example.estoriassemhapp.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -50,17 +51,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Configuração do recycler view
-        RecyclerView rvTitle = getView().findViewById(R.id.tvUsername);
-        rvTitle.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        rvTitle.setLayoutManager(layoutManager);
-
-
-        //Configuração do Adapter (parte do recycler view)
-        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        LiveData<List<Story>> products = mainViewModel.getStories();
     }
 
     @Override
@@ -68,5 +58,21 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        //Configuração do Adapter (parte do recycler view)
+        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        LiveData<List<Story>> products = mainViewModel.getStories();
+
+
+        //Configuração do recycler view
+        RecyclerView rvTitle = getView().findViewById(R.id.rvStories);
+        rvTitle.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvTitle.setLayoutManager(layoutManager);
     }
 }

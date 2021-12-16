@@ -13,12 +13,14 @@ import android.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.estoriassemhapp.fragment.MainFragment;
 import com.example.estoriassemhapp.fragment.ProfileFragment;
 import com.example.estoriassemhapp.R;
 import com.example.estoriassemhapp.fragment.TagsFragment;
 import com.example.estoriassemhapp.fragment.WriteViewFragment;
+import com.example.estoriassemhapp.model.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        //MainActivityViewModel vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        mainViewModel.getStories();
 
         // Ações para a seleção da guia inferior de escolha de fragments.
         bottomNavigationView = findViewById(R.id.btNav);
