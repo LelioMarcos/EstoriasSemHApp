@@ -7,7 +7,7 @@ public class Story {
     String title;
     String text;
     String sinopse;
-    Float nota;
+    String nota;
     Bitmap capa;
 
 
@@ -17,9 +17,16 @@ public class Story {
         this.sinopse = sinopse;
     }
 
+    public Story(String id, String title, String text, String nota) {
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.nota = nota;
+    }
 
 
-    public Story(String id, String title, String text, String sinopse, Float nota, Bitmap capa) {
+
+    public Story(String id, String title, String text, String sinopse, String nota, Bitmap capa) {
         this.id = id;
         this.title = title;
         this.text = text;
@@ -44,7 +51,7 @@ public class Story {
         return sinopse;
     }
 
-    public Float getNota() {
+    public String getNota() {
         return nota;
     }
 

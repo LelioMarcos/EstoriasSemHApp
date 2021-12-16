@@ -67,14 +67,13 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //Configuração do recycler view
         RecyclerView rvStory = getView().findViewById(R.id.rvStories);
         rvStory.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvStory.setLayoutManager(layoutManager);
 
         //Configuração do Adapter (parte do recycler view)
-        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        MainViewModel mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
         LiveData<List<Story>> stories = mainViewModel.getStories();
         stories.observe(getViewLifecycleOwner(), new Observer<List<Story>>() {
             @Override
@@ -83,8 +82,5 @@ public class MainFragment extends Fragment {
                 rvStory.setAdapter(storyAdapter);
             }
         });
-
-
-
     }
 }

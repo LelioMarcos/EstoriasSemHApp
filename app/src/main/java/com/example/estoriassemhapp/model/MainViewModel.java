@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.estoriassemhapp.R;
 import com.example.estoriassemhapp.util.HttpRequest;
 import com.example.estoriassemhapp.util.Util;
 
@@ -22,6 +23,7 @@ import java.util.concurrent.Executors;
 
 public class MainViewModel extends ViewModel {
     MutableLiveData<List<Story>> stories;
+    int navigationOpSelected = R.id.homeViewOp; // Utilizar a visualização em grid por padrão.
 
     public LiveData<List<Story>> getStories() {
         if (stories==null) {
@@ -30,6 +32,14 @@ public class MainViewModel extends ViewModel {
         }
 
         return stories;
+    }
+
+    public void setNavigationOpSelected(int navigationOpSelected) {
+        this.navigationOpSelected = navigationOpSelected;
+    }
+
+    public int getNavigationOpSelected() {
+        return navigationOpSelected;
     }
 
     public void refreshStories() {

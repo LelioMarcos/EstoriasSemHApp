@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         mainViewModel.getStories();
 
+
+
         // Ações para a seleção da guia inferior de escolha de fragments.
         bottomNavigationView = findViewById(R.id.btNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -45,18 +47,22 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.homeViewOp: // Se a visualização por grid for selecionada, exibir em formato grid.
                         MainFragment mainFragment = MainFragment.newInstance();
                         setFragment(mainFragment);
+                        mainViewModel.setNavigationOpSelected(R.id.homeViewOp); // Utilizar o view model para salvar a posição escolhida pelo usuário.
                         break;
                     case R.id.profileViewOp: // Se a visualização por grid for selecionada, exibir em formato grid.
                         ProfileFragment profileFragment = ProfileFragment.newInstance();
                         setFragment(profileFragment);
+                        mainViewModel.setNavigationOpSelected(R.id.profileViewOp);
                         break;
                     case R.id.writeViewOp: // Se a visualização por grid for selecionada, exibir em formato grid.
                         WriteViewFragment writeViewFragment = WriteViewFragment.newInstance();
                         setFragment(writeViewFragment);
+                        mainViewModel.setNavigationOpSelected(R.id.writeViewOp);
                         break;
                     case R.id.tagsViewOp: // Se a visualização por grid for selecionada, exibir em formato grid.
                         TagsFragment tagsFragment = TagsFragment.newInstance();
                         setFragment(tagsFragment);
+                        mainViewModel.setNavigationOpSelected(R.id.tagsViewOp);
                         break;
                     case R.id.exitOp: // Se a visualização por grid for selecionada, exibir em formato grid.
                         logout();
@@ -69,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.tbMain);
         setSupportActionBar(toolbar);
+
+        bottomNavigationView.setSelectedItemId(mainViewModel.getNavigationOpSelected());
     }
 
     void setFragment(Fragment fragment) {
