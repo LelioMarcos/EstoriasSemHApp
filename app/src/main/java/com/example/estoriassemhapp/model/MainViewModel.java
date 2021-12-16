@@ -50,8 +50,26 @@ public class MainViewModel extends ViewModel {
                     httpRequest.finish();
 
                     Log.d("HTTP_REQUEST_RESULT", result);
+
+                    JSONObject jsonObject = new JSONObject(result);
+                    int success = jsonObject.getInt("success");
+                    if (success == 1) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jProduct = jsonArray.getJSONObject(i);
+
+                            String id = jProduct.getString("idhist");
+                            String title = jProduct.getString("nomhist");
+                            String text = jProduct.getString("dsccorpohist");
+
+                            Story story = new Story(id, title, text);
+                            storiesList.add(story);
+                        }
+                        stories.postValue(storiesList);
+                    }
+
                 }
-                catch (IOException e) {
+                catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
             }

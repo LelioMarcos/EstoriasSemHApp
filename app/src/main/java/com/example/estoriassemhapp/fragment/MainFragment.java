@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.activity.MainActivity;
+import com.example.estoriassemhapp.adapter.StoryAdapter;
 import com.example.estoriassemhapp.model.MainViewModel;
 import com.example.estoriassemhapp.model.Story;
 
@@ -64,15 +67,24 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        //Configuração do recycler view
+        RecyclerView rvStory = getView().findViewById(R.id.rvStories);
+        rvStory.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvStory.setLayoutManager(layoutManager);
+
         //Configuração do Adapter (parte do recycler view)
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        LiveData<List<Story>> products = mainViewModel.getStories();
+        LiveData<List<Story>> stories = mainViewModel.getStories();
+        stories.observe(getViewLifecycleOwner(), new Observer<List<Story>>() {
+            @Override
+            public void onChanged(List<Story> stories) {
+                StoryAdapter storyAdapter = new StoryAdapter(getContext(), stories);
+                rvStory.setAdapter(storyAdapter);
+            }
+        });
 
 
-        //Configuração do recycler view
-        RecyclerView rvTitle = getView().findViewById(R.id.rvStories);
-        rvTitle.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        rvTitle.setLayoutManager(layoutManager);
+
     }
 }

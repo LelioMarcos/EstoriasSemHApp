@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.activity.StoryActivity;
 import com.example.estoriassemhapp.fragment.MainFragment;
 import com.example.estoriassemhapp.model.Story;
 
@@ -43,11 +44,14 @@ public class StoryAdapter extends RecyclerView.Adapter {
         TextView tvNameList = holder.itemView.findViewById(R.id.tvUsername);
         tvNameList.setText(story.getTitle());
 
+        TextView tvHistList = holder.itemView.findViewById(R.id.tvBio);
+        tvHistList.setText(story.getText());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, MainFragment.class);
-                i.putExtra("pid", story.getId());
+                Intent i = new Intent(context, StoryActivity.class);
+                i.putExtra("idhist", story.getId());
                 context.startActivity(i);
             }
         });
