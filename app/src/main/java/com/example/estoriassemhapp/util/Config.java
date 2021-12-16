@@ -1,5 +1,5 @@
 package com.example.estoriassemhapp.util;
 
 public class Config {
-    public static String PRODUCTS_APP_URl = ""; //inserir url
+    public static String BD_APP_URl = "http://localhost:8080/CRUD/"; //inserir url
 }
