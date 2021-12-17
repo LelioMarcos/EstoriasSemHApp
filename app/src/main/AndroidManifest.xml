@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.estoriassemhapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,45 +12,47 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".activity.CheckActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.SearchActivity"
-            android:parentActivityName=".activity.MainActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity"/>
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".activity.CommentsActivity"
-            android:parentActivityName=".activity.StoryActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".activity.StoryActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.StoryActivity"/>
+                android:value=".activity.StoryActivity" />
         </activity>
         <activity
             android:name=".activity.StoryActivity"
-            android:parentActivityName=".activity.MainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity"/>
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
+            android:exported="true">
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

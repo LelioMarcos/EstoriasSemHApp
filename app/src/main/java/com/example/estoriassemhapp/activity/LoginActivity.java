@@ -8,8 +8,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.util.Config;
+import com.example.estoriassemhapp.util.HttpRequest;
+import com.example.estoriassemhapp.util.Util;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -18,38 +30,69 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button btLogin = findViewById(R.id.btLogin);
-
-        btLogin.setOnClickListener(new View.OnClickListener() {
+        Button btnLogin = findViewById(R.id.btLogin);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                EditText etUsername = findViewById(R.id.etUsername);
-                String username = etUsername.getText().toString();
+            public void onClick(View v) {
+                EditText etLogin = findViewById(R.id.etUsername);
+                final String login = etLogin.getText().toString();
 
                 EditText etPassword = findViewById(R.id.etPassword);
-                String password = etPassword.getText().toString();
+                final String password = etPassword.getText().toString();
 
-                if (username.equals("Lelio") && password.equals("1234")) {
-                    Log.i("teste", "sadasdasd");
-                    login();
-                }
+
+
+                ExecutorService executorService = Executors.newSingleThreadExecutor();
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "login.php", "POST", "UTF-8");
+                        httpRequest.setBasicAuth(login, password);
+
+                        try {
+                            InputStream is = httpRequest.execute();
+                            String result = Util.inputStream2String(is, "UTF-8");
+                            httpRequest.finish();
+
+                            JSONObject jsonObject = new JSONObject(result);
+                            final int success = jsonObject.getInt("success");
+                            if(success == 1) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Config.setLogin(LoginActivity.this, login);
+                                        Config.setPassword(LoginActivity.this, password);
+                                        Toast.makeText(LoginActivity.this, "Login realizado com sucesso", Toast.LENGTH_LONG).show();
+                                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(i);
+                                    }
+                                });
+                            }
+                            else {
+                                final String error = jsonObject.getString("error");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(LoginActivity.this, error, Toast.LENGTH_LONG).show();
+                                    }
+
+                                });
+                            }
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
 
-        Button btnCreateUser = findViewById(R.id.btnCreateUser);
-
-        btnCreateUser.setOnClickListener(new View.OnClickListener() {
+        Button btnRegisterNewUser = findViewById(R.id.btnCreateUser);
+        btnRegisterNewUser.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(i);
             }
         });
     }
-
-    void login() {
-        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(i);
-    }
-
 }
