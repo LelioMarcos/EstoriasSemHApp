@@ -84,6 +84,7 @@ public class WriteViewFragment extends Fragment {
                 //Verificação de preenchimento do campo titulo
                 EditText etTitle = getView().findViewById(R.id.etTitle);
                 String title = etTitle.getText().toString();
+
                 if (title.isEmpty()) {
                     Toast.makeText(getContext(), "O campo de título não foi preenchido", Toast.LENGTH_LONG).show();
                     view.setEnabled(true);
@@ -133,20 +134,17 @@ public class WriteViewFragment extends Fragment {
                     public void run() {
                         HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "stories/create_story.php", "POST", "UTF-8");
 
-                        httpRequest.addParam("nomhist", title);
-                        httpRequest.addParam("dscsinopsehist", sinopse);
-                        httpRequest.addParam("dsccorpohist", whist);
-
-                        //PARTE PROVISÓRIA MUDAR DPS
-                        httpRequest.addParam("idusuario", "2");
-                        httpRequest.addParam("idcapa", "3");
-
+                        httpRequest.addParam("titulo", title);
+                        httpRequest.addParam("sinopse", sinopse);
+                        httpRequest.addParam("corpo", whist);
+                        httpRequest.addParam("idusuario", "3");
+                        httpRequest.addParam("idcapa", "2");
 
                         try {
                             InputStream is = httpRequest.execute();
                             String result = Util.inputStream2String(is, "UTF-8");
                             httpRequest.finish();
-
+                            System.out.println(result);
                             Log.d("HTTP_REQUEST_RESULT", result);
 
                             JSONObject jsonObject = new JSONObject(result);
