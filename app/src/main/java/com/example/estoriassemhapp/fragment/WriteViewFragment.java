@@ -153,8 +153,15 @@ public class WriteViewFragment extends Fragment {
                                 public void run() {
                                     Toast.makeText(getContext(), "Produto adicionado com sucesso", Toast.LENGTH_LONG).show();
                                     getActivity().setResult(RESULT_OK);
-                                    //getActivity().finish();
+                                    int id = 0;
+                                    try {
+                                        id = jsonObject.getInt("id");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
                                     Intent i = new Intent(getActivity(), StoryActivity.class);
+                                    i.putExtra("idhist", Integer.toString(id));
                                     startActivity(i);
                                 }
                             });

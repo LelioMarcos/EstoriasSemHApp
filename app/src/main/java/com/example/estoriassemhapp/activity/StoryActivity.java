@@ -44,6 +44,8 @@ public class StoryActivity extends AppCompatActivity {
         Intent i = getIntent();
         String id = i.getStringExtra("idhist");
 
+        System.out.println(id);
+
         btnComments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
