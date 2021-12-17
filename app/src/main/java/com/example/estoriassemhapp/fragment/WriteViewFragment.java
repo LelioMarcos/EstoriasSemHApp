@@ -1,18 +1,35 @@
 package com.example.estoriassemhapp.fragment;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.estoriassemhapp.R;
 import com.example.estoriassemhapp.activity.StoryActivity;
+import com.example.estoriassemhapp.util.Config;
+import com.example.estoriassemhapp.util.HttpRequest;
+import com.example.estoriassemhapp.util.Util;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,8 +78,93 @@ public class WriteViewFragment extends Fragment {
         btnStory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), StoryActivity.class);
-                startActivity(i);
+
+                view.setEnabled(false); //Desabilitar botão
+
+                //Verificação de preenchimento do campo titulo
+                EditText etTitle = getView().findViewById(R.id.etTitle);
+                String title = etTitle.getText().toString();
+                if (title.isEmpty()) {
+                    Toast.makeText(getContext(), "O campo de título não foi preenchido", Toast.LENGTH_LONG).show();
+                    view.setEnabled(true);
+                    return;
+                }
+
+                //Verificação de preenchimento do campo tags
+                EditText etTags = getView().findViewById(R.id.etTags);
+                String tags = etTags.getText().toString();
+                if (tags.isEmpty()) {
+                    Toast.makeText(getContext(), "O campo tags não foi preenchido", Toast.LENGTH_LONG).show();
+                    view.setEnabled(true);
+                    return;
+                }
+
+                //Verificação de preenchimento do campo classificação indicativa
+                EditText etClass = getView().findViewById(R.id.etClass);
+                String classif = etClass.getText().toString();
+                if (classif.isEmpty()) {
+                    Toast.makeText(getContext(), "O campo classificação indicativa não foi preenchido", Toast.LENGTH_LONG).show();
+                    view.setEnabled(true);
+                    return;
+                }
+
+                //Verificação de preenchimento do campo história
+                EditText etHist = getView().findViewById(R.id.tvWriteStory);
+                String whist = etHist.getText().toString();
+                if (whist.isEmpty()) {
+                    Toast.makeText(getContext(), "O campo da história não foi preenchido", Toast.LENGTH_LONG).show();
+                    view.setEnabled(true);
+                    return;
+                }
+
+                //Verificação de preenchimento do campo sinopse
+                EditText etSinopse = getView().findViewById(R.id.etSinopse);
+                String sinopse = etSinopse.getText().toString();
+                if (sinopse.isEmpty()) {
+                    Toast.makeText(getContext(), "O campo sinopse não foi preenchido", Toast.LENGTH_LONG).show();
+                    view.setEnabled(true);
+                    return;
+                }
+
+                //Envio dos dados do novo produto
+                ExecutorService executorService = Executors.newSingleThreadExecutor();
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "stories/create_story.php", "POST", "UTF-8");
+
+                        httpRequest.addParam("nomhist", title);
+                        httpRequest.addParam("dscsinopsehist", sinopse);
+                        httpRequest.addParam("dsccorpohist", whist);
+
+                        //PARTE PROVISÓRIA MUDAR DPS
+                        httpRequest.addParam("idusuario", "2");
+                        httpRequest.addParam("idcapa", "3");
+
+
+                        try {
+                            InputStream is = httpRequest.execute();
+                            String result = Util.inputStream2String(is, "UTF-8");
+                            httpRequest.finish();
+
+                            Log.d("HTTP_REQUEST_RESULT", result);
+
+                            JSONObject jsonObject = new JSONObject(result);
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getContext(), "Produto adicionado com sucesso", Toast.LENGTH_LONG).show();
+                                    getActivity().setResult(RESULT_OK);
+                                    //getActivity().finish();
+                                    Intent i = new Intent(getActivity(), StoryActivity.class);
+                                    startActivity(i);
+                                }
+                            });
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
     }
