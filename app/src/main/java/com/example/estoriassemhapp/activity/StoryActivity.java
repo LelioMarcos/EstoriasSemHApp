@@ -50,7 +50,7 @@ public class StoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(StoryActivity.this, CommentsActivity.class);
-                i.putExtra("id", id);
+                i.putExtra("idhist", id);
 
                 startActivity(i);
             }
@@ -71,7 +71,7 @@ public class StoryActivity extends AppCompatActivity {
                 tvTitle.setText(story.getTitle());
 
                 TextView tvScore = findViewById(R.id.tvScore);
-                tvScore.setText(story.getNota());
+                tvScore.setText("Nota: " + story.getNota());
             }
         });
 

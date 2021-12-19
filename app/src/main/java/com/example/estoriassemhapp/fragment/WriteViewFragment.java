@@ -81,6 +81,8 @@ public class WriteViewFragment extends Fragment {
 
                 view.setEnabled(false); //Desabilitar botão
 
+                String id = Config.getId(getContext());
+
                 //Verificação de preenchimento do campo titulo
                 EditText etTitle = getView().findViewById(R.id.etTitle);
                 String title = etTitle.getText().toString();
@@ -137,8 +139,8 @@ public class WriteViewFragment extends Fragment {
                         httpRequest.addParam("titulo", title);
                         httpRequest.addParam("sinopse", sinopse);
                         httpRequest.addParam("corpo", whist);
-                        httpRequest.addParam("idusuario", "3");
-                        httpRequest.addParam("idcapa", "2");
+                        httpRequest.addParam("idusuario", id);
+                        httpRequest.addParam("idcapa", "3");
 
                         try {
                             InputStream is = httpRequest.execute();

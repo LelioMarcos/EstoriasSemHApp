@@ -60,7 +60,14 @@ public class LoginActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Config.setLogin(LoginActivity.this, login);
+                                        String id = null;
+                                        try {
+                                            id = jsonObject.getString("idUsuario");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        Config.setLogin(LoginActivity.this, login, id);
                                         Config.setPassword(LoginActivity.this, password);
                                         Toast.makeText(LoginActivity.this, "Login realizado com sucesso", Toast.LENGTH_LONG).show();
                                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
