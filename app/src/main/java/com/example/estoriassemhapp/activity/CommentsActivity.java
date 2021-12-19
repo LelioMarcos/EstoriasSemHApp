@@ -33,19 +33,14 @@ public class CommentsActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.tbMain);
         setSupportActionBar(toolbar);
-        Intent i = getIntent();
 
+        Intent i = getIntent();
         id = i.getStringExtra("idhist");
 
-        /*
-        Intent i =getIntent();
-        String id = i.getStringExtra("id");
-
-        CommentsViewModel commentsViewModel = new ViewModelProvider(this, new CommentsViewModel.CommentsViewModelFactory(id)).get(CommentsViewModel.class);
-
-        // Adicionar a opção de voltar para a página inicial na toolbar.
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        CommentsViewModel commentsViewModel = new ViewModelProvider(CommentsActivity.this, new CommentsViewModel.CommentsViewModelFactory(id)).get(CommentsViewModel.class);
 
         //Configuração do recycler view
         RecyclerView rvComments = findViewById(R.id.rvComments);
@@ -64,7 +59,7 @@ public class CommentsActivity extends AppCompatActivity {
                 rvComments.setAdapter(commentsAdapter);
             }
         });
-        */
+
 
 
     }

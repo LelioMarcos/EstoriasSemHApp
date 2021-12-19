@@ -27,7 +27,6 @@ import java.util.concurrent.Executors;
 public class CommentsViewModel extends ViewModel {
     String id;
     MutableLiveData<List<Comment>> commentPost;
-    int navigationOpSelected = R.id.homeViewOp;
 
     public CommentsViewModel(String id) {
         this.id = id;
@@ -99,7 +98,7 @@ public class CommentsViewModel extends ViewModel {
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            return (T) new StoryViewModel(id);
+            return (T) new CommentsViewModel(id);
         }
     }
 
