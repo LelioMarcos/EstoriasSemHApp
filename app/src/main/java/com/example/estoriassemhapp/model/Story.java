@@ -9,13 +9,20 @@ public class Story {
     String sinopse;
     String nota;
     String autor;
+    String indicacao;
     Bitmap capa;
-
 
     public Story(String id, String title, String sinopse) {
         this.id = id;
         this.title = title;
         this.sinopse = sinopse;
+    }
+
+    public Story(String id, String title, String sinopse, String indicacao, String check) {
+        this.id = id;
+        this.title = title;
+        this.sinopse = sinopse;
+        this.indicacao = indicacao;
     }
 
     public Story(String id, String title, String text, String autor) {
@@ -43,5 +50,9 @@ public class Story {
 
     public String getAutor() {
         return autor;
+    }
+
+    public String getIndicacao() {
+        return indicacao;
     }
 }

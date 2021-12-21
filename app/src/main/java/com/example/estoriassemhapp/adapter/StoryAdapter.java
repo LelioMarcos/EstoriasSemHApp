@@ -47,6 +47,9 @@ public class StoryAdapter extends RecyclerView.Adapter {
         TextView tvSinopseList = holder.itemView.findViewById(R.id.tvBio);
         tvSinopseList.setText(story.getSinopse());
 
+        TextView tvClassificacao = holder.itemView.findViewById(R.id.tvAge);
+        tvClassificacao.setText(story.getIndicacao());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
