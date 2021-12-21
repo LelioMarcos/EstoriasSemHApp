@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.estoriassemhapp.R;
 import com.example.estoriassemhapp.activity.CommentsActivity;
@@ -89,7 +90,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        Button btnLogout = getView().findViewById(R.id.btnLogout);
+        ImageButton btnLogout = getView().findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
