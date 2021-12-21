@@ -50,41 +50,49 @@ public class SearchViewModel extends ViewModel {
             @Override
             public void run() {
                 List<Story> storiesList = new ArrayList<>();
+
                 HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "stories/get_stories.php", "GET", "UTF-8");
-
                 httpRequest.addParam("search", query);
+                get_stories(httpRequest, storiesList);
 
-                try {
-                    InputStream is = httpRequest.execute();
-                    String result = Util.inputStream2String(is, "UTF-8");
-                    httpRequest.finish();
-
-                    Log.d("HTTP_REQUEST_RESULT", result);
-
-                    JSONObject jsonObject = new JSONObject(result);
-                    int success = jsonObject.getInt("success");
-                    if (success == 1) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jProduct = jsonArray.getJSONObject(i);
-
-                            String id = jProduct.getString("idhist");
-                            String title = jProduct.getString("nomhist");
-                            String text = jProduct.getString("dscsinopsehist");
-
-                            Story story = new Story(id, title, text);
-                            storiesList.add(story);
-                        }
-                        stories.postValue(storiesList);
-                    }
-
-                }
-                catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
+                httpRequest = new HttpRequest(Config.BD_APP_URl + "stories/get_stories.php", "GET", "UTF-8");
+                httpRequest.addParam("genero", query);
+                get_stories(httpRequest, storiesList);
             }
         });
     }
+
+    private void get_stories(HttpRequest httpRequest, List<Story> storiesList) {
+        try {
+            InputStream is = httpRequest.execute();
+            String result = Util.inputStream2String(is, "UTF-8");
+            httpRequest.finish();
+
+            Log.d("HTTP_REQUEST_RESULT", result);
+
+            JSONObject jsonObject = new JSONObject(result);
+            int success = jsonObject.getInt("success");
+            if (success == 1) {
+                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jProduct = jsonArray.getJSONObject(i);
+
+                    String id = jProduct.getString("idhist");
+                    String title = jProduct.getString("nomhist");
+                    String text = jProduct.getString("dscsinopsehist");
+                    String classificacao = jProduct.getString("classificacao");
+
+                    Story story = new Story(id, title, text, classificacao, "a");
+                    storiesList.add(story);
+                }
+                stories.postValue(storiesList);
+            }
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     static public class SearchViewModelFactory implements ViewModelProvider.Factory {
 

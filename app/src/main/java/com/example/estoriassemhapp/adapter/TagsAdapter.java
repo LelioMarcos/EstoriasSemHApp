@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.activity.SearchActivity;
 import com.example.estoriassemhapp.activity.StoryActivity;
 import com.example.estoriassemhapp.model.Story;
 import com.example.estoriassemhapp.model.Tag;
@@ -43,15 +44,15 @@ public class TagsAdapter extends RecyclerView.Adapter {
         TextView tvGnder = holder.itemView.findViewById(R.id.tvGnder);
         tvGnder.setText(tag.getGenero());
 
-        /*
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, ?);
-                i.putExtra("idgenero", tag.getId());
+                Intent i = new Intent(context, SearchActivity.class);
+                i.putExtra("genero", tag.getGenero());
                 context.startActivity(i);
             }
-        });*/
+        });
 
     }
 

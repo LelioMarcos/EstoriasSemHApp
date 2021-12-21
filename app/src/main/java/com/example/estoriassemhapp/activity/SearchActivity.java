@@ -39,8 +39,13 @@ public class SearchActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
-        String query = i.getStringExtra("query");
+        String query = "";
 
+        if (i.hasExtra("query")) {
+            query = i.getStringExtra("query");
+        } else if (i.hasExtra("genero")) {
+            query = i.getStringExtra("genero");
+        }
 
         RecyclerView rvSearchResult = findViewById(R.id.rvSearchResult);
         rvSearchResult.setHasFixedSize(true);
