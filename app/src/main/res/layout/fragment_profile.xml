@@ -43,32 +43,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:text="oi!"
-            app:layout_constraintBottom_toTopOf="@+id/btnFollowers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/btnLogout"
             app:layout_constraintStart_toEndOf="@+id/imvProfilePhoto"
             app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
-
-        <Button
-            android:id="@+id/btnFollowing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="Seguindo"
-            app:layout_constraintEnd_toStartOf="@+id/btnFollowers"
-            app:layout_constraintStart_toEndOf="@+id/imvProfilePhoto"
-            app:layout_constraintTop_toBottomOf="@+id/imvProfilePhoto" />
-
-        <Button
-            android:id="@+id/btnFollowers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="Seguidores"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imvProfilePhoto" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvStories"
@@ -81,6 +59,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnFollowing" />
+            app:layout_constraintTop_toBottomOf="@+id/imvProfilePhoto" />
+
+        <ImageButton
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_baseline_exit_to_app_24"
+            app:layout_constraintBottom_toTopOf="@+id/rvStories"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

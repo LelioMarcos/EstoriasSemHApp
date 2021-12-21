@@ -22,9 +22,4 @@
         android:icon="@drawable/ic_baseline_menu_24"
         android:title="Tags"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/exitOp"
-        android:icon="@drawable/ic_baseline_exit_to_app_24"
-        android:title="Sair"
-        app:showAsAction="ifRoom" />
 </menu>

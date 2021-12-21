@@ -14,8 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.activity.CommentsActivity;
+import com.example.estoriassemhapp.activity.LoginActivity;
+import com.example.estoriassemhapp.activity.StoryActivity;
 import com.example.estoriassemhapp.adapter.StoryAdapter;
 import com.example.estoriassemhapp.model.MainViewModel;
 import com.example.estoriassemhapp.model.ProfileModel;
@@ -84,5 +88,17 @@ public class ProfileFragment extends Fragment {
                 rvStory.setAdapter(storyAdapter);
             }
         });
+
+        Button btnLogout = getView().findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Config.setLogin(getContext(), "", "");
+                Config.setPassword(getContext(), "");
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 }

@@ -46,15 +46,7 @@ public class StoryActivity extends AppCompatActivity {
 
         System.out.println(id);
 
-        btnComments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(StoryActivity.this, CommentsActivity.class);
-                i.putExtra("idhist", id);
 
-                startActivity(i);
-            }
-        });
 
         StoryViewModel storyViewModel = new ViewModelProvider(this, new StoryViewModel.StoryViewModelFactory(id)).get(StoryViewModel.class);
         LiveData<Story> story = storyViewModel.getStory();

@@ -66,9 +66,6 @@ public class MainActivity extends AppCompatActivity {
                         setFragment(tagsFragment);
                         mainViewModel.setNavigationOpSelected(R.id.tagsViewOp);
                         break;
-                    case R.id.exitOp: // Se a visualização por grid for selecionada, exibir em formato grid.
-                        logout();
-                        break;
                 }
 
                 return true;
