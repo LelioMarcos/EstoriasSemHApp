@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,18 +47,16 @@ public class StoryActivity extends AppCompatActivity {
 
         System.out.println(id);
 
-
-
         StoryViewModel storyViewModel = new ViewModelProvider(this, new StoryViewModel.StoryViewModelFactory(id)).get(StoryViewModel.class);
         LiveData<Story> story = storyViewModel.getStory();
-
-
 
         story.observe(this, new Observer<Story>() {
             @Override
             public void onChanged(Story story) {
                 TextView tvStory = findViewById(R.id.tvStory);
                 tvStory.setText(story.getText());
+
+                tvStory.setMovementMethod(new ScrollingMovementMethod());
 
                 TextView tvTitle = findViewById(R.id.tvTitulo);
                 tvTitle.setText(story.getTitle());
