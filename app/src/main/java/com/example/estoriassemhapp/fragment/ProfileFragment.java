@@ -1,5 +1,7 @@
 package com.example.estoriassemhapp.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -94,10 +96,20 @@ public class ProfileFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Config.setLogin(getContext(), "", "");
-                Config.setPassword(getContext(), "");
-                Intent i = new Intent(getContext(), LoginActivity.class);
-                startActivity(i);
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                alertDialog.setMessage("Deseja mesmo sair?");
+                alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Config.setLogin(getContext(), "", "");
+                        Config.setPassword(getContext(), "");
+                        Intent in = new Intent(getContext(), LoginActivity.class);
+                        startActivity(in);
+                    }
+                });
+                alertDialog.setNegativeButton("Não", null);
+                alertDialog.show();
             }
         });
 
