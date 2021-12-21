@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.util.Config;
 import com.example.estoriassemhapp.util.HttpRequest;
 import com.example.estoriassemhapp.util.Util;
 
@@ -26,6 +27,7 @@ import java.util.concurrent.Executors;
 public class ProfileModel extends ViewModel {
     String id;
     MutableLiveData<List<Story>> stories;
+    MutableLiveData<User> userPost;
 
     public ProfileModel(String id) {
         this.id = id;
@@ -50,7 +52,7 @@ public class ProfileModel extends ViewModel {
             @Override
             public void run() {
                 List<Story> storiesList = new ArrayList<>();
-                HttpRequest httpRequest = new HttpRequest("https://estorias-sem-h-crud.herokuapp.com/stories/get_stories.php", "GET", "UTF-8");
+                HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "stories/get_stories.php", "GET", "UTF-8");
 
                 httpRequest.addParam("id_user", id);
 
@@ -85,6 +87,39 @@ public class ProfileModel extends ViewModel {
             }
         });
     }
+
+    /*
+    void loadUser() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                HttpRequest httpRequest1 = new HttpRequest(Config.BD_APP_URl + "users/get_ser.php", "GET", "UTF-8");
+                httpRequest1.addParam("id", id);
+
+                try {
+                    InputStream is1 = httpRequest1.execute();
+                    String result1 = Util.inputStream2String(is1, "UTF-8");
+                    httpRequest1.finish();
+
+                    JSONObject jsonObject1 = new JSONObject(result1);
+                    int success1 = jsonObject1.getInt("success");
+                    if (success1 == 1) {
+                        String nome = jsonObject1.getString("nomusuario");
+                        String
+
+                        User user = new User(id, nome);
+
+                        userPost.postValue(user);
+                    }
+                }
+                catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }*/
 
     static public class ProfileModelFactory implements ViewModelProvider.Factory {
 

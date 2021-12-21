@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.util.Config;
 import com.example.estoriassemhapp.util.HttpRequest;
 import com.example.estoriassemhapp.util.Util;
 
@@ -52,7 +53,7 @@ public class MainViewModel extends ViewModel {
             @Override
             public void run() {
                 List<Story> storiesList = new ArrayList<>();
-                HttpRequest httpRequest = new HttpRequest("https://estorias-sem-h-crud.herokuapp.com/stories/get_stories.php", "GET", "UTF-8");
+                HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "stories/get_stories.php", "GET", "UTF-8");
 
                 try {
                     InputStream is = httpRequest.execute();

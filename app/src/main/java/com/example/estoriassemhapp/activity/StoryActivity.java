@@ -61,8 +61,9 @@ public class StoryActivity extends AppCompatActivity {
                 TextView tvTitle = findViewById(R.id.tvTitulo);
                 tvTitle.setText(story.getTitle());
 
-                TextView tvScore = findViewById(R.id.tvScore);
-                tvScore.setText("Nota: " + story.getNota());
+                TextView tvWriter = findViewById(R.id.tvAutor);
+                tvWriter.setText(story.getAutor());
+
             }
         });
 

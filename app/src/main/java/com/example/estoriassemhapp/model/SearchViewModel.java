@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.estoriassemhapp.util.Config;
 import com.example.estoriassemhapp.util.HttpRequest;
 import com.example.estoriassemhapp.util.Util;
 
@@ -49,7 +50,7 @@ public class SearchViewModel extends ViewModel {
             @Override
             public void run() {
                 List<Story> storiesList = new ArrayList<>();
-                HttpRequest httpRequest = new HttpRequest("https://estorias-sem-h-crud.herokuapp.com/stories/get_stories.php", "GET", "UTF-8");
+                HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "stories/get_stories.php", "GET", "UTF-8");
 
                 httpRequest.addParam("search", query);
 

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.estoriassemhapp.activity.StoryActivity;
+import com.example.estoriassemhapp.util.Config;
 import com.example.estoriassemhapp.util.HttpRequest;
 import com.example.estoriassemhapp.util.Util;
 
@@ -50,7 +51,7 @@ public class StoryViewModel extends ViewModel {
 
             @Override
             public void run() {
-                HttpRequest httpRequest = new HttpRequest("https://estorias-sem-h-crud.herokuapp.com/stories/get_story.php", "GET", "UTF-8");
+                HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "stories/get_story.php", "GET", "UTF-8");
                 httpRequest.addParam("id", id);
 
                 try {
@@ -65,9 +66,9 @@ public class StoryViewModel extends ViewModel {
                     if (success == 1) {
                         String title = jsonObject.getString("nomhist");
                         String text = jsonObject.getString("dsccorpohist");
-                        String nota = jsonObject.getString("notahist");
+                        String autor = jsonObject.getString("nome");
 
-                        Story story = new Story(id, title, text, nota);
+                        Story story = new Story(id, title, text, autor);
 
                         storyPost.postValue(story);
                     }
