@@ -50,7 +50,7 @@ public class HttpRequest {
     private String charset;
 
 
-    HashMap<String, String> params = new HashMap<>();
+    public HashMap<String, String> params = new HashMap<>();
     HashMap<String, File> files = new HashMap<>();
 
     String user = "";
