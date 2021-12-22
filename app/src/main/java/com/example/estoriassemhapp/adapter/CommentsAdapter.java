@@ -41,6 +41,9 @@ public class CommentsAdapter extends RecyclerView.Adapter {
 
         TextView tvBio = holder.itemView.findViewById(R.id.tvBio);
         tvBio.setText(comment.getComentario());
+
+        TextView tvUser = holder.itemView.findViewById(R.id.tvUsername);
+        tvUser.setText(comment.getNomusu());
     }
 
     @Override

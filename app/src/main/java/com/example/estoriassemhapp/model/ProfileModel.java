@@ -73,8 +73,9 @@ public class ProfileModel extends ViewModel {
                             String id = jProduct.getString("idhist");
                             String title = jProduct.getString("nomhist");
                             String text = jProduct.getString("dscsinopsehist");
+                            String classificacao = jProduct.getString("classificacao");
 
-                            Story story = new Story(id, title, text);
+                            Story story = new Story(id, title, text, classificacao, "a");
                             storiesList.add(story);
                         }
                         stories.postValue(storiesList);

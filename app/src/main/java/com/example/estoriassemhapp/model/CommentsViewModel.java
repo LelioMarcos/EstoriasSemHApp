@@ -1,6 +1,10 @@
 package com.example.estoriassemhapp.model;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -9,6 +13,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.activity.CommentsActivity;
+import com.example.estoriassemhapp.activity.StoryActivity;
 import com.example.estoriassemhapp.util.Config;
 import com.example.estoriassemhapp.util.HttpRequest;
 import com.example.estoriassemhapp.util.Util;
@@ -71,9 +77,10 @@ public class CommentsViewModel extends ViewModel {
 
                             String idcoment = jComments.getString("idcoment");
                             String idusu = jComments.getString("idusuario");
+                            String nomusu = jComments.getString("nomusuario");
                             String comentaro = jComments.getString("dsccorpocoment");
 
-                            Comment comment = new Comment(idcoment, idusu, comentaro);
+                            Comment comment = new Comment(idcoment, idusu, nomusu, comentaro);
                             commentsList.add(comment);
                         }
                         commentPost.postValue(commentsList);
@@ -81,6 +88,33 @@ public class CommentsViewModel extends ViewModel {
 
                 }
                 catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void sendComment(String iduser, String comment) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+
+            @Override
+            public void run() {
+                HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "comments/create_comment.php", "POST", "UTF-8");
+                httpRequest.addParam("comment", comment);
+                httpRequest.addParam("idusuario", iduser);
+                httpRequest.addParam("idhist", id);
+
+                try {
+                    InputStream is = httpRequest.execute();
+                    String result = Util.inputStream2String(is, "UTF-8");
+                    httpRequest.finish();
+
+                    Log.d("HTTP_REQUEST_RESULT", result);
+
+                    refreshComments();
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }

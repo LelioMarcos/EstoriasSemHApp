@@ -3,11 +3,13 @@ package com.example.estoriassemhapp.model;
 public class Comment {
     String id;
     String usucom;
+    String nomusu;
     String comentario;
 
-    public Comment(String id, String usucom, String comentario) {
+    public Comment(String id, String usucom, String nomusu, String comentario) {
         this.id = id;
         this.usucom = usucom;
+        this.nomusu = nomusu;
         this.comentario = comentario;
     }
 
@@ -21,6 +23,10 @@ public class Comment {
 
     public String getUsucom() {
         return usucom;
+    }
+
+    public String getNomusu() {
+        return nomusu;
     }
 
     public void setUsucom(String usucom) {

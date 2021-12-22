@@ -62,11 +62,19 @@ public class StoryActivity extends AppCompatActivity {
                 tvTitle.setText(story.getTitle());
 
                 TextView tvWriter = findViewById(R.id.tvAutor);
-                tvWriter.setText(story.getAutor());
+                tvWriter.setText("Autor: " + story.getAutor());
 
             }
         });
 
+        btnComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(StoryActivity.this, CommentsActivity.class);
+                i.putExtra("idhist", id);
+                startActivity(i);
+            }
+        });
     }
 
 

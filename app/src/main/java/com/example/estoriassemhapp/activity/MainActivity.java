@@ -1,3 +1,6 @@
+// ESTÓRIAS SEM H
+// CARLOS, LÉLIO, RODOLFO
+
 package com.example.estoriassemhapp.activity;
 
 import androidx.annotation.NonNull;
