@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -64,7 +65,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                 RegisterViewModel rvm = new ViewModelProvider(RegisterActivity.this).get(RegisterViewModel.class);
                 Uri selectPhotoLocation = rvm.getSelectPhotoLocation();
-
                 if(selectPhotoLocation == null) {
                     Toast.makeText(RegisterActivity.this, "Você precisa selecionar uma imagem", Toast.LENGTH_LONG).show();
                     return;
@@ -102,6 +102,14 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Senha não confere", Toast.LENGTH_LONG).show();
                     return;
                 }
+
+                /*
+                try {
+                    Bitmap newPhoto = Util.getBitmap(RegisterActivity.this, selectPhotoLocation, 1000, 300);
+                }
+                catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }*/
 
                 Intent i = new Intent();
                 i.setData(selectPhotoLocation);
