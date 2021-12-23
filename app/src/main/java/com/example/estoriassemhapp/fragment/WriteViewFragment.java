@@ -96,6 +96,8 @@ public class WriteViewFragment extends Fragment {
         Spinner sp1 = getView().findViewById(R.id.spGender);
         Spinner sp2 = getView().findViewById(R.id.spClass);
 
+        ArrayList<String> ids = new ArrayList<>();
+
         tags.observe(getViewLifecycleOwner(), new Observer<List<Tag>>() {
             @Override
             public void onChanged(List<Tag> tags1) {
@@ -103,6 +105,7 @@ public class WriteViewFragment extends Fragment {
 
                 for (Tag tab: tags1) {
                     genders.add(tab.getGenero());
+                    ids.add(tab.getId());
                 }
 
                 ArrayAdapter<String> adp1 = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, genders);
@@ -111,10 +114,13 @@ public class WriteViewFragment extends Fragment {
             }
         });
 
+
+
         classific.observe(getViewLifecycleOwner(), new Observer<List<Classific>>() {
             @Override
             public void onChanged(List<Classific> classifics) {
                 ArrayList<String> nomes = new ArrayList<>();
+
 
                 for (Classific classific1: classifics) {
                     nomes.add(classific1.getClassif());
@@ -145,7 +151,7 @@ public class WriteViewFragment extends Fragment {
                     return;
                 }
 
-                String gender = sp1.getSelectedItem().toString();
+                String gender = ids.get(sp1.getSelectedItemPosition());
                 String classific = sp2.getSelectedItem().toString();
 
                 //Verificação de preenchimento do campo história
@@ -191,7 +197,7 @@ public class WriteViewFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(getContext(), "Produto adicionado com sucesso", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), "História adicionado com sucesso", Toast.LENGTH_LONG).show();
                                 }
                             });
 
