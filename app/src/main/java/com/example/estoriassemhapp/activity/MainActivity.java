@@ -47,13 +47,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<String> permissions = new ArrayList<>();
-        permissions.add(Manifest.permission.CAMERA);
-        permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        checkForPermissions(permissions);
-
-
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         mainViewModel.getStories();
@@ -144,59 +137,4 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
     }
-
-    //Função para pedir permissões
-    private void checkForPermissions(List<String> permissions) {
-        List<String> permissionsNotGranted = new ArrayList<>();
-
-        for (String permission : permissions) {
-            if (!hasPermission(permission)) {
-                permissionsNotGranted.add(permission);
-            }
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (permissionsNotGranted.size() > 0) {
-                requestPermissions(permissionsNotGranted.toArray(new String[permissionsNotGranted.size()]), RESULT_REQUEST_PERMISSION);
-            }
-        }
-    }
-
-    //Verifica se uma determinada permissão já foi concedida
-    private boolean hasPermission(String permission) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return ActivityCompat.checkSelfPermission(MainActivity.this, permission) == PackageManager.PERMISSION_GRANTED;
-        }
-        return false;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        List<String> permissionRejected = new ArrayList<>();
-        if (requestCode == RESULT_REQUEST_PERMISSION) {
-            for (String permission : permissions) {
-                if (!hasPermission(permission)) {
-                    permissionRejected.add(permission);
-                }
-            }
-        }
-
-        if (permissionRejected.size() > 0) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (shouldShowRequestPermissionRationale(permissionRejected.get(0))) {
-                    new AlertDialog.Builder(MainActivity.this).
-                            setMessage("Para usar esse app é preciso conceder essas permissões").
-                            setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    requestPermissions(permissionRejected.toArray(new String[permissionRejected.size()]), RESULT_REQUEST_PERMISSION);
-                                }
-                            }).create().show();
-                }
-            }
-        }
-    }
-
 }
