@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,9 @@ public class CommentsAdapter extends RecyclerView.Adapter {
 
         TextView tvUser = holder.itemView.findViewById(R.id.tvUsername);
         tvUser.setText(comment.getNomusu());
+
+        ImageView imvProfilePhoto = holder.itemView.findViewById(R.id.imvProfilePhoto);
+        imvProfilePhoto.setImageBitmap(comment.getFoto());
     }
 
     @Override

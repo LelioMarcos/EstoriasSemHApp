@@ -103,13 +103,14 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                /*
+
                 try {
                     Bitmap newPhoto = Util.getBitmap(RegisterActivity.this, selectPhotoLocation, 1000, 300);
                 }
                 catch (FileNotFoundException e) {
                     e.printStackTrace();
-                }*/
+                }
+
 
                 Intent i = new Intent();
                 i.setData(selectPhotoLocation);
@@ -123,6 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                         httpRequest.addParam("newName", newUsername);
                         httpRequest.addParam("newLogin", newLogin);
                         httpRequest.addParam("newPassword", newPassword);
+                        //httpRequest.addParam("newPhoto", );
 
                         try {
                             InputStream is = httpRequest.execute();

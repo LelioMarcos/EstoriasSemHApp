@@ -3,6 +3,7 @@ package com.example.estoriassemhapp.model;
 import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -80,7 +81,11 @@ public class CommentsViewModel extends ViewModel {
                             String nomusu = jComments.getString("nomusuario");
                             String comentaro = jComments.getString("dsccorpocoment");
 
-                            Comment comment = new Comment(idcoment, idusu, nomusu, comentaro);
+                            String foto64 = jComments.getString("linkfotousuario");
+                            String pureBase64Encoded = foto64.substring(foto64.indexOf(",")+1);
+                            Bitmap foto = Util.base642Bitmap(pureBase64Encoded);
+
+                            Comment comment = new Comment(idcoment, idusu, nomusu, comentaro, foto);
                             commentsList.add(comment);
                         }
                         commentPost.postValue(commentsList);
