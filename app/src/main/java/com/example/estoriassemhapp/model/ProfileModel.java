@@ -1,5 +1,6 @@
 package com.example.estoriassemhapp.model;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,15 @@ public class ProfileModel extends ViewModel {
         }
 
         return stories;
+    }
+
+    public LiveData<User> getUser() {
+        if (userPost == null) {
+            userPost = new MutableLiveData<User>();
+            loadUser();
+        }
+
+        return userPost;
     }
 
     public void refreshStories() {
@@ -89,38 +99,43 @@ public class ProfileModel extends ViewModel {
         });
     }
 
-    /*
     void loadUser() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
+
             @Override
             public void run() {
-                HttpRequest httpRequest1 = new HttpRequest(Config.BD_APP_URl + "users/get_ser.php", "GET", "UTF-8");
-                httpRequest1.addParam("id", id);
+                HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "users/get_user.php", "GET", "UTF-8");
+                httpRequest.addParam("id", id);
 
                 try {
-                    InputStream is1 = httpRequest1.execute();
-                    String result1 = Util.inputStream2String(is1, "UTF-8");
-                    httpRequest1.finish();
+                    InputStream is = httpRequest.execute();
+                    String result = Util.inputStream2String(is, "UTF-8");
+                    httpRequest.finish();
 
-                    JSONObject jsonObject1 = new JSONObject(result1);
-                    int success1 = jsonObject1.getInt("success");
-                    if (success1 == 1) {
-                        String nome = jsonObject1.getString("nomusuario");
-                        String
+                    Log.d("HTTP_REQUEST_RESULT", result);
 
-                        User user = new User(id, nome);
+                    JSONObject jsonObject = new JSONObject(result);
+                    int success = jsonObject.getInt("success");
+                    if (success == 1) {
+                        String nome = jsonObject.getString("nomusuario");
+                        String bio = jsonObject.getString("dscbiousuario");
 
+                        String foto64 = jsonObject.getString("linkfotousuario");
+                        String pureBase64Encoded = foto64.substring(foto64.indexOf(",")+1);
+                        Bitmap foto = Util.base642Bitmap(pureBase64Encoded);
+
+                        User user = new User(id, nome, bio, foto);
                         userPost.postValue(user);
                     }
+
                 }
                 catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
-
-    }*/
+    }
 
     static public class ProfileModelFactory implements ViewModelProvider.Factory {
 

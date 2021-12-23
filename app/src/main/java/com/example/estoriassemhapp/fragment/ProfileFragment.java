@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.estoriassemhapp.R;
 import com.example.estoriassemhapp.activity.CommentsActivity;
@@ -28,6 +30,7 @@ import com.example.estoriassemhapp.model.MainViewModel;
 import com.example.estoriassemhapp.model.ProfileModel;
 import com.example.estoriassemhapp.model.Story;
 import com.example.estoriassemhapp.model.StoryViewModel;
+import com.example.estoriassemhapp.model.User;
 import com.example.estoriassemhapp.util.Config;
 
 import java.util.List;
@@ -81,8 +84,24 @@ public class ProfileFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvStory.setLayoutManager(layoutManager);
 
-        //Configuração do Adapter (parte do recycler view)
         ProfileModel profileModel = new ViewModelProvider(getActivity(), new ProfileModel.ProfileModelFactory(Config.getId(getContext()))).get(ProfileModel.class);
+
+        LiveData<User> usuario = profileModel.getUser();
+        usuario.observe(getViewLifecycleOwner(), new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                TextView tvUsername = getView().findViewById(R.id.tvUsername);
+                tvUsername.setText(user.getNome());
+
+                TextView tvBio = getView().findViewById(R.id.tvBio);
+                tvBio.setText(user.getBio());
+
+                ImageView imvProfilePhoto = getView().findViewById(R.id.imvProfilePhoto);
+                imvProfilePhoto.setImageBitmap(user.getFoto());
+            }
+        });
+
+
         LiveData<List<Story>> stories = profileModel.getStories();
         stories.observe(getViewLifecycleOwner(), new Observer<List<Story>>() {
             @Override
