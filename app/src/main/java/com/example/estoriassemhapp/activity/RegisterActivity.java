@@ -24,6 +24,7 @@ import com.example.estoriassemhapp.util.Util;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -104,14 +105,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
 
-                try {
-                    Bitmap newPhoto = Util.getBitmap(RegisterActivity.this, selectPhotoLocation, 1000, 300);
-                }
-                catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-
                 Intent i = new Intent();
                 i.setData(selectPhotoLocation);
                 setResult(Activity.RESULT_OK, i);
@@ -124,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
                         httpRequest.addParam("newName", newUsername);
                         httpRequest.addParam("newLogin", newLogin);
                         httpRequest.addParam("newPassword", newPassword);
-                        //httpRequest.addParam("newPhoto", );
+                        httpRequest.addFile("newPhoto", new File (selectPhotoLocation.getPath()));
 
                         try {
                             InputStream is = httpRequest.execute();
