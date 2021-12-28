@@ -1,14 +1,20 @@
 package com.example.estoriassemhapp.activity;
 
+import static com.google.protobuf.CodedOutputStream.DEFAULT_BUFFER_SIZE;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,14 +32,17 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class RegisterActivity extends AppCompatActivity {
 
     static int PHOTO_PICKER_REQUEST = 1;
+    static int DEFAULT_BUFFER_SIZE = 8192;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, PHOTO_PICKER_REQUEST);
             }
@@ -70,6 +79,15 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Você precisa selecionar uma imagem", Toast.LENGTH_LONG).show();
                     return;
                 }
+
+                InputStream in = null;
+                try {
+                    in = getContentResolver().openInputStream(selectPhotoLocation);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println(selectPhotoLocation);
 
                 EditText etNewUsername =  findViewById(R.id.etNewUsername);
                 final String newUsername = etNewUsername.getText().toString();
@@ -104,7 +122,6 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-
                 Intent i = new Intent();
                 i.setData(selectPhotoLocation);
                 setResult(Activity.RESULT_OK, i);
@@ -117,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
                         httpRequest.addParam("newName", newUsername);
                         httpRequest.addParam("newLogin", newLogin);
                         httpRequest.addParam("newPassword", newPassword);
-                        httpRequest.addFile("newPhoto", new File (selectPhotoLocation.getPath()));
+                        httpRequest.addFile("newPhoto", new File(rvm.getSelectPhotoLocation().getPath()));
 
                         try {
                             InputStream is = httpRequest.execute();
@@ -153,6 +170,20 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private static void copyInputStreamToFile(InputStream inputStream, File file)
+            throws IOException {
+
+        // append = false
+        try (FileOutputStream outputStream = new FileOutputStream(file, false)) {
+            int read;
+            byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        }
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -160,6 +191,8 @@ public class RegisterActivity extends AppCompatActivity {
         if(requestCode == PHOTO_PICKER_REQUEST) {
             if(resultCode == Activity.RESULT_OK) {
                 Uri selectPhotoLocation = data.getData(); //Pega o caminho da imagem
+
+                System.out.println(selectPhotoLocation.getPath());
                 //Insere a foto no preview
                 ImageView imvPhotoPreview = findViewById(R.id.imvPreview);
                 imvPhotoPreview.setImageURI(selectPhotoLocation);
