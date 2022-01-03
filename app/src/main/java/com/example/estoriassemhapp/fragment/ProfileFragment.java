@@ -32,6 +32,7 @@ import com.example.estoriassemhapp.model.Story;
 import com.example.estoriassemhapp.model.StoryViewModel;
 import com.example.estoriassemhapp.model.User;
 import com.example.estoriassemhapp.util.Config;
+import com.example.estoriassemhapp.util.ImageCache;
 
 import java.util.List;
 
@@ -97,7 +98,7 @@ public class ProfileFragment extends Fragment {
                 tvBio.setText(user.getBio());
 
                 ImageView imvProfilePhoto = getView().findViewById(R.id.imvProfilePhoto);
-                imvProfilePhoto.setImageBitmap(user.getFoto());
+                ImageCache.loadToImageView(getActivity(), user.getId(), imvProfilePhoto);
             }
         });
 

@@ -107,6 +107,7 @@ public class ProfileModel extends ViewModel {
             public void run() {
                 HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "users/get_user.php", "GET", "UTF-8");
                 httpRequest.addParam("id", id);
+                httpRequest.addParam("no_photo", "true");
 
                 try {
                     InputStream is = httpRequest.execute();
@@ -121,11 +122,7 @@ public class ProfileModel extends ViewModel {
                         String nome = jsonObject.getString("nomusuario");
                         String bio = jsonObject.getString("dscbiousuario");
 
-                        String foto64 = jsonObject.getString("linkfotousuario");
-                        String pureBase64Encoded = foto64.substring(foto64.indexOf(",")+1);
-                        Bitmap foto = Util.base642Bitmap(pureBase64Encoded);
-
-                        User user = new User(id, nome, bio, foto);
+                        User user = new User(id, nome, bio);
                         userPost.postValue(user);
                     }
 

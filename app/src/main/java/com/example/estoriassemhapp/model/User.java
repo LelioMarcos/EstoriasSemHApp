@@ -6,13 +6,11 @@ public class User {
     String id;
     String nome;
     String bio;
-    Bitmap foto;
 
-    public User(String id, String nome, String bio, Bitmap foto) {
+    public User(String id, String nome, String bio) {
         this.id = id;
         this.nome = nome;
         this.bio = bio;
-        this.foto = foto;
     }
 
     public User(String id, String nome) {
@@ -42,13 +40,5 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
-    }
-
-    public Bitmap getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Bitmap foto) {
-        this.foto = foto;
     }
 }

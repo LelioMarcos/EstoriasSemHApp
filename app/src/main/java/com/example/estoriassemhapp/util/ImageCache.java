@@ -25,10 +25,8 @@ public class ImageCache {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    /*
-                    HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "get_product_image.php", "GET", "UTF-8");
+                    HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "users/get_photo_user.php", "GET", "UTF-8");
                     httpRequest.addParam("id", id);
-                     */
 
                     try {
                         InputStream is = httpRequest.execute();
