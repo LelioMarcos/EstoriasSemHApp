@@ -81,11 +81,7 @@ public class CommentsViewModel extends ViewModel {
                             String nomusu = jComments.getString("nomusuario");
                             String comentaro = jComments.getString("dsccorpocoment");
 
-                            String foto64 = jComments.getString("linkfotousuario");
-                            String pureBase64Encoded = foto64.substring(foto64.indexOf(",")+1);
-                            Bitmap foto = Util.base642Bitmap(pureBase64Encoded);
-
-                            Comment comment = new Comment(idcoment, idusu, nomusu, comentaro, foto);
+                            Comment comment = new Comment(idcoment, idusu, nomusu, comentaro);
                             commentsList.add(comment);
                         }
                         commentPost.postValue(commentsList);

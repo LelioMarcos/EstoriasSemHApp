@@ -1,5 +1,6 @@
 package com.example.estoriassemhapp.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.estoriassemhapp.R;
+import com.example.estoriassemhapp.activity.CommentsActivity;
 import com.example.estoriassemhapp.model.Comment;
 import com.example.estoriassemhapp.model.Story;
 import com.example.estoriassemhapp.model.Tag;
+import com.example.estoriassemhapp.util.ImageCache;
 
 import java.util.List;
 
@@ -47,7 +50,7 @@ public class CommentsAdapter extends RecyclerView.Adapter {
         tvUser.setText(comment.getNomusu());
 
         ImageView imvProfilePhoto = holder.itemView.findViewById(R.id.imvProfilePhoto);
-        imvProfilePhoto.setImageBitmap(comment.getFoto());
+        ImageCache.loadToImageView((Activity) context, comment.getId(), imvProfilePhoto);
     }
 
     @Override
