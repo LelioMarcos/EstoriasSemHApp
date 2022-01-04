@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.estoriassemhapp.R;
 import com.example.estoriassemhapp.activity.MainActivity;
@@ -67,6 +68,9 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        ProgressBar pbStories = getView().findViewById(R.id.pbStories);
+        pbStories.setVisibility(View.VISIBLE);
+
         RecyclerView rvStory = getView().findViewById(R.id.rvStories);
         rvStory.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -78,6 +82,7 @@ public class MainFragment extends Fragment {
         stories.observe(getViewLifecycleOwner(), new Observer<List<Story>>() {
             @Override
             public void onChanged(List<Story> stories) {
+                pbStories.setVisibility(View.GONE);
                 StoryAdapter storyAdapter = new StoryAdapter(getContext(), stories);
                 rvStory.setAdapter(storyAdapter);
             }

@@ -50,7 +50,7 @@ public class CommentsAdapter extends RecyclerView.Adapter {
         tvUser.setText(comment.getNomusu());
 
         ImageView imvProfilePhoto = holder.itemView.findViewById(R.id.imvProfilePhoto);
-        ImageCache.loadToImageView((Activity) context, comment.getId(), imvProfilePhoto);
+        ImageCache.loadToImageView((Activity) context, comment.getUsucom(), imvProfilePhoto);
     }
 
     @Override

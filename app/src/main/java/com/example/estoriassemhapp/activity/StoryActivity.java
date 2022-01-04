@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.estoriassemhapp.R;
@@ -32,6 +33,9 @@ public class StoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
+
+        ProgressBar pbStory = findViewById(R.id.pbStory);
+        pbStory.setVisibility(View.VISIBLE);
 
         Toolbar toolbar = findViewById(R.id.tbMain);
         setSupportActionBar(toolbar);
@@ -53,6 +57,8 @@ public class StoryActivity extends AppCompatActivity {
         story.observe(this, new Observer<Story>() {
             @Override
             public void onChanged(Story story) {
+                pbStory.setVisibility(View.GONE);
+
                 TextView tvStory = findViewById(R.id.tvStory);
                 tvStory.setText(story.getText());
 

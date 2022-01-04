@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.estoriassemhapp.R;
 import com.example.estoriassemhapp.adapter.StoryAdapter;
@@ -66,6 +67,9 @@ public class TagsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        ProgressBar pbTags = getView().findViewById(R.id.pbTags);
+        pbTags.setVisibility(View.VISIBLE);
+
         RecyclerView rvTags = getView().findViewById(R.id.rvTags);
         rvTags.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -77,6 +81,8 @@ public class TagsFragment extends Fragment {
         tags.observe(getViewLifecycleOwner(), new Observer<List<Tag>>() {
             @Override
             public void onChanged(List<Tag> tags1) {
+                pbTags.setVisibility(View.GONE);
+
                 TagsAdapter tagsAdapter = new TagsAdapter(getContext(), tags1);
                 rvTags.setAdapter(tagsAdapter);
             }

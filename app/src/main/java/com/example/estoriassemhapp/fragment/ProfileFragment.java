@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.estoriassemhapp.R;
@@ -80,6 +81,9 @@ public class ProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        ProgressBar pbProfile = getView().findViewById(R.id.pbProfile);
+        pbProfile.setVisibility(View.VISIBLE);
+
         RecyclerView rvStory = getView().findViewById(R.id.rvStories);
         rvStory.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -107,6 +111,8 @@ public class ProfileFragment extends Fragment {
         stories.observe(getViewLifecycleOwner(), new Observer<List<Story>>() {
             @Override
             public void onChanged(List<Story> stories) {
+                pbProfile.setVisibility(View.GONE);
+
                 StoryAdapter storyAdapter = new StoryAdapter(getContext(), stories);
                 rvStory.setAdapter(storyAdapter);
             }

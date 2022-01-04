@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.estoriassemhapp.R;
 import com.example.estoriassemhapp.adapter.StoryAdapter;
@@ -30,6 +32,9 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        ProgressBar pbSearch = findViewById(R.id.pbSearch);
+        pbSearch.setVisibility(View.VISIBLE);
 
         Toolbar toolbar = findViewById(R.id.tbMain);
         setSupportActionBar(toolbar);
@@ -58,6 +63,8 @@ public class SearchActivity extends AppCompatActivity {
         stories.observe(this, new Observer<List<Story>>() {
             @Override
             public void onChanged(List<Story> stories) {
+                pbSearch.setVisibility(View.GONE);
+
                 StoryAdapter storyAdapter = new StoryAdapter(SearchActivity.this, stories);
                 rvSearchResult.setAdapter(storyAdapter);
             }

@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import com.example.estoriassemhapp.R;
 import com.example.estoriassemhapp.adapter.CommentsAdapter;
@@ -49,6 +50,9 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
 
+        ProgressBar pbComments = findViewById(R.id.pbComments);
+        pbComments.setVisibility(View.VISIBLE);
+
         Toolbar toolbar = findViewById(R.id.tbMain);
         setSupportActionBar(toolbar);
 
@@ -72,6 +76,8 @@ public class CommentsActivity extends AppCompatActivity {
         comments.observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(List<Comment> comments1) {
+                pbComments.setVisibility(View.GONE);
+
                 CommentsAdapter commentsAdapter = new CommentsAdapter(CommentsActivity.this, comments1);
                 rvComments.setAdapter(commentsAdapter);
             }
@@ -86,6 +92,8 @@ public class CommentsActivity extends AppCompatActivity {
                 EditText etComment = findViewById(R.id.etComment);
 
                 if (!etComment.getText().toString().equals("")) {
+                    pbComments.setVisibility(View.VISIBLE);
+
                     String comment = etComment.getText().toString();
 
                     etComment.setText("");
