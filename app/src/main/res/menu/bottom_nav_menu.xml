@@ -20,6 +20,6 @@
     <item
         android:id="@+id/tagsViewOp"
         android:icon="@drawable/ic_baseline_menu_24"
-        android:title="Tags"
+        android:title="Gêneros"
         app:showAsAction="always" />
 </menu>
