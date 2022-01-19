@@ -219,9 +219,17 @@ public class RegisterActivity extends AppCompatActivity {
 
                 try {
                     f = getFile(RegisterActivity.this, selectPhotoLocation);
-                    System.out.println(f.getPath());
+                    Log.i("IMAGE", f.getPath());
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+
+                try {
+                    Util.scaleImage(f.getPath(), 300, 300);
+                    Log.i("IMAGE", "Image Scaled");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    return;
                 }
 
                 //Insere a foto no preview
