@@ -20,7 +20,9 @@ public class ImageCache {
         String imageLocation = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/" + id;
         File f = new File(imageLocation);
         if (f.exists() && !f.isDirectory()) {
+            progressBar.setVisibility(View.VISIBLE);
             imageView.setImageBitmap(Util.getBitmap(imageLocation));
+            progressBar.setVisibility(View.GONE);
         }
         else {
             ExecutorService executorService = Executors.newSingleThreadExecutor();

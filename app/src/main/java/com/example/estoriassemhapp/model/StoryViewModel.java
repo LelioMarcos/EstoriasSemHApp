@@ -67,8 +67,9 @@ public class StoryViewModel extends ViewModel {
                         String title = jsonObject.getString("nomhist");
                         String text = jsonObject.getString("dsccorpohist");
                         String autor = jsonObject.getString("nome");
+                        String idusuario = jsonObject.getString("idusuario");
 
-                        Story story = new Story(id, title, text, autor);
+                        Story story = new Story(id, title, text, autor, idusuario, "a");
 
                         storyPost.postValue(story);
                     }

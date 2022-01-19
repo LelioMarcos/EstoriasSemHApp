@@ -46,13 +46,12 @@ public class ProfileFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static String pid;
 
     // TODO: Rename and change types of parameters
 
-    public ProfileFragment() {
-        // Required empty public constructor
+    public ProfileFragment(String pid) {
+        this.pid = pid;
     }
 
     /**
@@ -61,8 +60,8 @@ public class ProfileFragment extends Fragment {
      * @return A new instance of fragment ProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance() {
-        ProfileFragment fragment = new ProfileFragment();
+    public static ProfileFragment newInstance(String pid) {
+        ProfileFragment fragment = new ProfileFragment(pid);
         return fragment;
     }
 
@@ -89,10 +88,11 @@ public class ProfileFragment extends Fragment {
 
         RecyclerView rvStory = getView().findViewById(R.id.rvStories);
         rvStory.setHasFixedSize(true);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvStory.setLayoutManager(layoutManager);
 
-        ProfileModel profileModel = new ViewModelProvider(getActivity(), new ProfileModel.ProfileModelFactory(Config.getId(getContext()))).get(ProfileModel.class);
+        ProfileModel profileModel = new ViewModelProvider(getActivity(), new ProfileModel.ProfileModelFactory(pid)).get(ProfileModel.class);
 
         LiveData<User> usuario = profileModel.getUser();
         usuario.observe(getViewLifecycleOwner(), new Observer<User>() {
@@ -126,6 +126,12 @@ public class ProfileFragment extends Fragment {
         });
 
         ImageButton btnLogout = getView().findViewById(R.id.btnLogout);
+        btnLogout.setVisibility(View.GONE);
+
+        if (this.pid == Config.getId(getContext())) {
+            btnLogout.setVisibility(View.VISIBLE);
+        }
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

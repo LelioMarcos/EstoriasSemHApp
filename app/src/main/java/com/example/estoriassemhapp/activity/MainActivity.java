@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         mainViewModel.setNavigationOpSelected(R.id.homeViewOp); // Utilizar o view model para salvar a posição escolhida pelo usuário.
                         break;
                     case R.id.profileViewOp: // Se a visualização por grid for selecionada, exibir em formato grid.
-                        ProfileFragment profileFragment = ProfileFragment.newInstance();
+                        ProfileFragment profileFragment = ProfileFragment.newInstance(Config.getId(MainActivity.this));
                         setFragment(profileFragment);
                         mainViewModel.setNavigationOpSelected(R.id.profileViewOp);
                         break;

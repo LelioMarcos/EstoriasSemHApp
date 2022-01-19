@@ -71,6 +71,16 @@ public class StoryActivity extends AppCompatActivity {
                 TextView tvWriter = findViewById(R.id.tvAutor);
                 tvWriter.setText("Autor: " + story.getAutor());
 
+                tvWriter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(StoryActivity.this, ProfileActivity.class);
+                        i.putExtra("pid", story.getIdusuario());
+
+                        startActivity(i);
+                    }
+                });
+
             }
         });
 

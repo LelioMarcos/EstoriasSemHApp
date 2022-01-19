@@ -8,6 +8,8 @@ public class Story {
     String text;
     String sinopse;
     String nota;
+
+    String idusuario;
     String autor;
     String indicacao;
     Bitmap capa;
@@ -25,11 +27,16 @@ public class Story {
         this.indicacao = indicacao;
     }
 
-    public Story(String id, String title, String text, String autor) {
+    public Story(String id, String title, String text, String autor, String idusuario, String check) {
         this.id = id;
         this.title = title;
         this.text = text;
         this.autor = autor;
+        this.idusuario = idusuario;
+    }
+
+    public String getIdusuario() {
+        return idusuario;
     }
 
     public String getId() {

@@ -2,6 +2,7 @@ package com.example.estoriassemhapp.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.estoriassemhapp.R;
 import com.example.estoriassemhapp.activity.CommentsActivity;
+import com.example.estoriassemhapp.activity.ProfileActivity;
 import com.example.estoriassemhapp.model.Comment;
 import com.example.estoriassemhapp.model.Story;
 import com.example.estoriassemhapp.model.Tag;
@@ -49,6 +51,16 @@ public class CommentsAdapter extends RecyclerView.Adapter {
 
         TextView tvUser = holder.itemView.findViewById(R.id.tvUsername);
         tvUser.setText(comment.getNomusu());
+
+        tvUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, ProfileActivity.class);
+                i.putExtra("pid", comment.getUsucom());
+
+                context.startActivity(i);
+            }
+        });
 
         ImageView imvProfilePhoto = holder.itemView.findViewById(R.id.imvProfilePhoto);
         ProgressBar pbCommentPhoto = holder.itemView.findViewById(R.id.pbCommentPhoto);

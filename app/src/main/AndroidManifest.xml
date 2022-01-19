@@ -14,7 +14,12 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".activity.ProfileActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".activity.CommentsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.CommentsActivity" />
+        </activity>
         <activity
             android:name=".activity.CheckActivity"
             android:exported="true">
