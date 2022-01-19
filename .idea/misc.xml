@@ -46,6 +46,7 @@
         <entry key="..\:/Users/carlo/OneDrive/Ifes/DispositivosMoveis/EstoriasSemHApp/app/src/main/res/menu/top_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/carlo/OneDrive/Ifes/DispositivosMoveis/EstoriasSemHApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3828125" />
         <entry key="..\:/Users/carlo/OneDrive/Ifes/DispositivosMoveis/EstoriasSemHApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3828125" />
+        <entry key="..\:/tinhs/EstoriasSemHApp/app/src/main/res/layout/activity_check.xml" value="0.22864583333333333" />
         <entry key="..\:/tinhs/EstoriasSemHApp/app/src/main/res/layout/activity_comments.xml" value="0.32382246376811596" />
         <entry key="..\:/tinhs/EstoriasSemHApp/app/src/main/res/layout/activity_login.xml" value="0.22864583333333333" />
         <entry key="..\:/tinhs/EstoriasSemHApp/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
@@ -58,6 +59,7 @@
         <entry key="..\:/tinhs/EstoriasSemHApp/app/src/main/res/layout/fragment_write.xml" value="0.5" />
         <entry key="..\:/tinhs/EstoriasSemHApp/app/src/main/res/layout/list_comment.xml" value="0.32382246376811596" />
         <entry key="..\:/tinhs/EstoriasSemHApp/app/src/main/res/layout/list_story.xml" value="0.3220108695652174" />
+        <entry key="..\:/tinhs/EstoriasSemHApp/app/src/main/res/menu/top_nav_menu.xml" value="0.22864583333333333" />
       </map>
     </option>
   </component>

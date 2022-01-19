@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -86,6 +87,9 @@ public class SearchActivity extends AppCompatActivity {
         // Criar a toolbar da activity.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_nav_menu, menu);
+
+        MenuItem myActionMenuItem = menu.findItem(R.id.opSearch);
+        myActionMenuItem.setVisible(false);
         return true;
     }
 }

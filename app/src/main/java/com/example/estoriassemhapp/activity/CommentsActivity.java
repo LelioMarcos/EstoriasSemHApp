@@ -136,6 +136,9 @@ public class CommentsActivity extends AppCompatActivity {
         // Criar a toolbar da activity.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_nav_menu, menu);
+
+        MenuItem myActionMenuItem = menu.findItem(R.id.opSearch);
+        myActionMenuItem.setVisible(false);
         return true;
     }
 }
