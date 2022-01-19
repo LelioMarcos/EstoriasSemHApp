@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,7 +51,8 @@ public class CommentsAdapter extends RecyclerView.Adapter {
         tvUser.setText(comment.getNomusu());
 
         ImageView imvProfilePhoto = holder.itemView.findViewById(R.id.imvProfilePhoto);
-        ImageCache.loadToImageView((Activity) context, comment.getUsucom(), imvProfilePhoto);
+        ProgressBar pbCommentPhoto = holder.itemView.findViewById(R.id.pbCommentPhoto);
+        ImageCache.loadToImageView((Activity) context, comment.getUsucom(), imvProfilePhoto, pbCommentPhoto);
     }
 
     @Override

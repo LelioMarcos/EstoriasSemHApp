@@ -105,7 +105,8 @@ public class ProfileFragment extends Fragment {
                 tvBio.setText(user.getBio());
 
                 ImageView imvProfilePhoto = getView().findViewById(R.id.imvProfilePhoto);
-                ImageCache.loadToImageView(getActivity(), user.getId(), imvProfilePhoto);
+                ProgressBar pbProfilePhoto = getView().findViewById(R.id.pbProfilePhoto);
+                ImageCache.loadToImageView(getActivity(), user.getId(), imvProfilePhoto, pbProfilePhoto);
             }
         });
 

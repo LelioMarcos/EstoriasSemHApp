@@ -3,7 +3,9 @@ package com.example.estoriassemhapp.util;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +15,7 @@ import java.util.concurrent.Executors;
 
 public class ImageCache {
 
-    public static void loadToImageView(Activity activity, String id, ImageView imageView) {
+    public static void loadToImageView(Activity activity, String id, ImageView imageView, ProgressBar progressBar) {
         //Verificar se a imagem já está salva localmente
         String imageLocation = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/" + id;
         File f = new File(imageLocation);
@@ -25,6 +27,14 @@ public class ImageCache {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.VISIBLE);
+                        }
+                    });
+
+
                     HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "users/get_photo_user.php", "GET", "UTF-8");
                     httpRequest.addParam("id", id);
 
@@ -48,6 +58,13 @@ public class ImageCache {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
                 }
             });
         }

@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activity.ProfileActivity"
             android:exported="true" />
         <activity
             android:name=".activity.CheckActivity"
