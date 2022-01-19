@@ -85,9 +85,8 @@ public class SearchViewModel extends ViewModel {
                     Story story = new Story(id, title, text, classificacao, "a");
                     storiesList.add(story);
                 }
-                stories.postValue(storiesList);
             }
-
+            stories.postValue(storiesList);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }

@@ -64,6 +64,7 @@ public class MainViewModel extends ViewModel {
 
                     JSONObject jsonObject = new JSONObject(result);
                     int success = jsonObject.getInt("success");
+
                     if (success == 1) {
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -77,8 +78,9 @@ public class MainViewModel extends ViewModel {
                             Story story = new Story(id, title, text, classificacao, "a");
                             storiesList.add(story);
                         }
-                        stories.postValue(storiesList);
                     }
+
+                    stories.postValue(storiesList);
 
                 }
                 catch (IOException | JSONException e) {

@@ -2,6 +2,9 @@ package com.example.estoriassemhapp.model;
 
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.View;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -88,9 +91,8 @@ public class ProfileModel extends ViewModel {
                             Story story = new Story(id, title, text, classificacao, "a");
                             storiesList.add(story);
                         }
-                        stories.postValue(storiesList);
                     }
-
+                    stories.postValue(storiesList);
                 }
                 catch (IOException | JSONException e) {
                     e.printStackTrace();

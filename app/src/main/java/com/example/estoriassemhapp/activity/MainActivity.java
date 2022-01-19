@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -111,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_nav_menu, menu);
 
-        super.onPrepareOptionsMenu(menu);
         MenuItem myActionMenuItem = menu.findItem(R.id.opSearch);
         SearchView searchView = (SearchView) myActionMenuItem.getActionView();
 

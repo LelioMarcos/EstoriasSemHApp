@@ -84,6 +84,9 @@ public class ProfileFragment extends Fragment {
         ProgressBar pbProfile = getView().findViewById(R.id.pbProfile);
         pbProfile.setVisibility(View.VISIBLE);
 
+        TextView tvNoStory = getView().findViewById(R.id.tvNoStory);
+        tvNoStory.setVisibility(View.GONE);
+
         RecyclerView rvStory = getView().findViewById(R.id.rvStories);
         rvStory.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -106,15 +109,18 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
         LiveData<List<Story>> stories = profileModel.getStories();
         stories.observe(getViewLifecycleOwner(), new Observer<List<Story>>() {
             @Override
             public void onChanged(List<Story> stories) {
                 pbProfile.setVisibility(View.GONE);
 
-                StoryAdapter storyAdapter = new StoryAdapter(getContext(), stories);
-                rvStory.setAdapter(storyAdapter);
+                if (!stories.isEmpty()) {
+                    StoryAdapter storyAdapter = new StoryAdapter(getContext(), stories);
+                    rvStory.setAdapter(storyAdapter);
+                } else {
+                    tvNoStory.setVisibility(View.VISIBLE);
+                }
             }
         });
 

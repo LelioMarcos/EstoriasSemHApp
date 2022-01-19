@@ -84,9 +84,8 @@ public class CommentsViewModel extends ViewModel {
                             Comment comment = new Comment(idcoment, idusu, nomusu, comentaro);
                             commentsList.add(comment);
                         }
-                        commentPost.postValue(commentsList);
                     }
-
+                    commentPost.postValue(commentsList);
                 }
                 catch (IOException | JSONException e) {
                     e.printStackTrace();

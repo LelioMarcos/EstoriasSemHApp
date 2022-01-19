@@ -117,6 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RegisterViewModel rvm = new ViewModelProvider(RegisterActivity.this).get(RegisterViewModel.class);
                 Uri photoFile = rvm.getSelectPhotoLocation();
+
                 if(photoFile == null) {
                     Toast.makeText(RegisterActivity.this, "Você precisa selecionar uma imagem", Toast.LENGTH_LONG).show();
                     return;
