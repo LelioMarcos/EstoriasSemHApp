@@ -1,5 +1,6 @@
 package com.example.estoriassemhapp.activity;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -50,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         ProfileFragment profileFragment = ProfileFragment.newInstance(pid);
         setFragment(profileFragment);
+
     }
 
     void setFragment(Fragment fragment) {
@@ -65,11 +67,16 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (id == android.R.id.home) {
             onBackPressed();
-            onBackPressed();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        super.onBackPressed();
     }
 
     @Override

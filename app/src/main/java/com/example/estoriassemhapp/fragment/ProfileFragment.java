@@ -101,8 +101,8 @@ public class ProfileFragment extends Fragment {
                 TextView tvUsername = getView().findViewById(R.id.tvUsername);
                 tvUsername.setText(user.getNome());
 
-                TextView tvBio = getView().findViewById(R.id.tvBio);
-                tvBio.setText(user.getBio());
+                //TextView tvBio = getView().findViewById(R.id.tvBio);
+                //tvBio.setText(user.getBio());
 
                 ImageView imvProfilePhoto = getView().findViewById(R.id.imvProfilePhoto);
                 ProgressBar pbProfilePhoto = getView().findViewById(R.id.pbProfilePhoto);
@@ -128,7 +128,10 @@ public class ProfileFragment extends Fragment {
         ImageButton btnLogout = getView().findViewById(R.id.btnLogout);
         btnLogout.setVisibility(View.GONE);
 
-        if (this.pid == Config.getId(getContext())) {
+        System.out.println(Config.getId(getActivity()));
+        System.out.println(this.pid);
+
+        if (this.pid.equals(Config.getId(getActivity()))) {
             btnLogout.setVisibility(View.VISIBLE);
         }
 
