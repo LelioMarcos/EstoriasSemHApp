@@ -49,13 +49,6 @@ public class SearchActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
-        String query = "";
-
-        if (i.hasExtra("query")) {
-            query = i.getStringExtra("query");
-        } else if (i.hasExtra("genero")) {
-            query = i.getStringExtra("genero");
-        }
 
         RecyclerView rvSearchResult = findViewById(R.id.rvSearchResult);
         rvSearchResult.setHasFixedSize(true);
@@ -63,7 +56,7 @@ public class SearchActivity extends AppCompatActivity {
         rvSearchResult.setLayoutManager(layoutManager);
 
         //Configuração do Adapter (parte do recycler view)
-        SearchViewModel searchViewModel = new ViewModelProvider(SearchActivity.this, new SearchViewModel.SearchViewModelFactory(query)).get(SearchViewModel.class);
+        SearchViewModel searchViewModel = new ViewModelProvider(SearchActivity.this, new SearchViewModel.SearchViewModelFactory(i)).get(SearchViewModel.class);
         LiveData<List<Story>> stories = searchViewModel.getStories();
         stories.observe(this, new Observer<List<Story>>() {
             @Override

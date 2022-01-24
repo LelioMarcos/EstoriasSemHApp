@@ -1,5 +1,6 @@
 package com.example.estoriassemhapp.model;
 
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -24,10 +25,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class SearchViewModel extends ViewModel {
-    String query;
+    Intent query;
     MutableLiveData<List<Story>> stories;
 
-    public SearchViewModel(String query) {
+    public SearchViewModel(Intent query) {
         this.query = query;
     }
 
@@ -50,14 +51,15 @@ public class SearchViewModel extends ViewModel {
             @Override
             public void run() {
                 List<Story> storiesList = new ArrayList<>();
-
                 HttpRequest httpRequest = new HttpRequest(Config.BD_APP_URl + "stories/get_stories.php", "GET", "UTF-8");
-                httpRequest.addParam("search", query);
-                get_stories(httpRequest, storiesList);
 
-                httpRequest = new HttpRequest(Config.BD_APP_URl + "stories/get_stories.php", "GET", "UTF-8");
-                httpRequest.addParam("genero", query);
-                get_stories(httpRequest, storiesList);
+                if (query.hasExtra("query")) {
+                    httpRequest.addParam("search", query.getStringExtra("query"));
+                    get_stories(httpRequest, storiesList);
+                } else if (query.hasExtra("genero")) {
+                    httpRequest.addParam("genero", query.getStringExtra("genero"));
+                    get_stories(httpRequest, storiesList);
+                }
             }
         });
     }
@@ -95,9 +97,9 @@ public class SearchViewModel extends ViewModel {
 
     static public class SearchViewModelFactory implements ViewModelProvider.Factory {
 
-        String query;
+        Intent query;
 
-        public SearchViewModelFactory(String query) {
+        public SearchViewModelFactory(Intent query) {
             this.query = query;
         }
 
