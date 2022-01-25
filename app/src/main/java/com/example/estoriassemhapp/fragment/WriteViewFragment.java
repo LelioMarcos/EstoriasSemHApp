@@ -104,6 +104,8 @@ public class WriteViewFragment extends Fragment {
         Spinner sp1 = getView().findViewById(R.id.spGender);
         Spinner sp2 = getView().findViewById(R.id.spClass);
 
+        ArrayList<String> ids = new ArrayList<>();
+
         tags.observe(getViewLifecycleOwner(), new Observer<List<Tag>>() {
             @Override
             public void onChanged(List<Tag> tags1) {
@@ -111,6 +113,7 @@ public class WriteViewFragment extends Fragment {
 
                 for (Tag tab: tags1) {
                     genders.add(tab.getGenero());
+                    ids.add(tab.getId());
                 }
 
                 populateSpinner(sp1, genders);
@@ -151,7 +154,7 @@ public class WriteViewFragment extends Fragment {
                     return;
                 }
 
-                String gender = sp1.getSelectedItem().toString();
+                String gender = ids.get(sp1.getSelectedItemPosition());
                 String classific = sp2.getSelectedItem().toString();
 
                 //Verificação de preenchimento do campo história
@@ -200,7 +203,8 @@ public class WriteViewFragment extends Fragment {
                                 }
                             });
 
-                            getActivity().setResult(RESULT_OK);
+                            //getActivity().setResult(RESULT_OK);
+
                             int id = 0;
                             try {
                                 id = jsonObject.getInt("id");
@@ -208,10 +212,10 @@ public class WriteViewFragment extends Fragment {
                                 e.printStackTrace();
                             }
 
-                            HttpRequest httpRequest2 = new HttpRequest(Config.BD_APP_URl + "generohists/create_generohist.php", "POST", "UTF-8");
+                            HttpRequest httpRequest2 = new HttpRequest(Config.BD_APP_URl + "generohists/create_generohist_id.php", "POST", "UTF-8");
 
                             httpRequest2.addParam("id_story", Integer.toString(id));
-                            httpRequest2.addParam("genero", gender);
+                            httpRequest2.addParam("id_genero", gender);
 
                             is = httpRequest2.execute();
                             result = Util.inputStream2String(is, "UTF-8");
