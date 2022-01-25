@@ -151,7 +151,7 @@ public class WriteViewFragment extends Fragment {
                     return;
                 }
 
-                String gender = ids.get(sp1.getSelectedItemPosition());
+                String gender = sp1.getSelectedItem().toString();
                 String classific = sp2.getSelectedItem().toString();
 
                 //Verificação de preenchimento do campo história
@@ -190,7 +190,6 @@ public class WriteViewFragment extends Fragment {
                             InputStream is = httpRequest.execute();
                             String result = Util.inputStream2String(is, "UTF-8");
                             httpRequest.finish();
-                            System.out.println(result);
                             Log.d("HTTP_REQUEST_RESULT", result);
 
                             JSONObject jsonObject = new JSONObject(result);
@@ -214,8 +213,11 @@ public class WriteViewFragment extends Fragment {
                             httpRequest2.addParam("id_story", Integer.toString(id));
                             httpRequest2.addParam("genero", gender);
 
-                            httpRequest2.execute();
+                            is = httpRequest2.execute();
+                            result = Util.inputStream2String(is, "UTF-8");
                             httpRequest2.finish();
+
+                            Log.d("HTTP_REQUEST_RESULT", result);
 
                             Intent i = new Intent(getActivity(), StoryActivity.class);
                             i.putExtra("idhist", Integer.toString(id));
