@@ -26,6 +26,7 @@ import com.example.estoriassemhapp.activity.StoryActivity;
 import com.example.estoriassemhapp.adapter.TagsAdapter;
 import com.example.estoriassemhapp.model.Classific;
 import com.example.estoriassemhapp.model.ClassificViewModel;
+import com.example.estoriassemhapp.model.Comment;
 import com.example.estoriassemhapp.model.Tag;
 import com.example.estoriassemhapp.model.TagsViewModel;
 import com.example.estoriassemhapp.util.Config;
@@ -38,6 +39,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -81,6 +83,12 @@ public class WriteViewFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_write, container, false);
     }
 
+    private void populateSpinner(Spinner spinner, List<String> list) {
+        ArrayAdapter<String> adp1 = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
+        adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adp1);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -96,8 +104,6 @@ public class WriteViewFragment extends Fragment {
         Spinner sp1 = getView().findViewById(R.id.spGender);
         Spinner sp2 = getView().findViewById(R.id.spClass);
 
-        ArrayList<String> ids = new ArrayList<>();
-
         tags.observe(getViewLifecycleOwner(), new Observer<List<Tag>>() {
             @Override
             public void onChanged(List<Tag> tags1) {
@@ -105,12 +111,9 @@ public class WriteViewFragment extends Fragment {
 
                 for (Tag tab: tags1) {
                     genders.add(tab.getGenero());
-                    ids.add(tab.getId());
                 }
 
-                ArrayAdapter<String> adp1 = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, genders);
-                adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                sp1.setAdapter(adp1);
+                populateSpinner(sp1, genders);
             }
         });
 
@@ -121,14 +124,11 @@ public class WriteViewFragment extends Fragment {
             public void onChanged(List<Classific> classifics) {
                 ArrayList<String> nomes = new ArrayList<>();
 
-
                 for (Classific classific1: classifics) {
                     nomes.add(classific1.getClassif());
                 }
 
-                ArrayAdapter<String> adp1 = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, nomes);
-                adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                sp2.setAdapter(adp1);
+                populateSpinner(sp2, nomes);
             }
         });
 
